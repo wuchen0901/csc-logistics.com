@@ -202,7 +202,7 @@ $(window).on('load', function() {
 				margin: 20,
 			},
 			991 : {
-				items: 3,
+				items: 4,
 				margin: 30,
 			}
 		}
