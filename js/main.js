@@ -216,13 +216,4 @@ $(window).on('load', function() {
 		type: 'iframe'
 	});
 
-	/*------------------
-		Image Popup
-	--------------------*/
-	$('.img-popup-gallery').magnificPopup({
-		type: 'image',
-		removalDelay: 300,
-		mainClass: 'mfp-fade',
-	});
-
 })(jQuery);
