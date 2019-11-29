@@ -208,6 +208,30 @@ $(window).on('load', function() {
 		}
 	});
 
+/*------------------------------
+		Client Comments Slider
+	-------------------------------*/
+	$('.client-comments-slider').owlCarousel({
+		nav: false,
+		dots:true,
+		items: 3,
+		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+		margin: 30,
+		responsive : {
+			0 : {
+				items: 1,
+				margin: 20,
+			},
+			576 : {
+				items: 2,
+				margin: 20,
+			},
+			768 : {
+				items: 3,
+				margin: 20,
+			},
+		}
+	});
 
 	/*------------------
 		Video Popup
