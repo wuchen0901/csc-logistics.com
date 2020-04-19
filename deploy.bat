@@ -1,1 +1,0 @@
-scp -r C:\Users\Wu.Chen\Downloads\Website\convoy/* root@118.24.62.65:/usr/local/harold/apache-tomcat-9.0.5/webapps/ROOT
