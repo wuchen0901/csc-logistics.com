@@ -1804,3 +1804,45 @@ Responsive
 		width: 22px;
 	}
 }
+/* Language Selector Style */
+.lang-select {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+.lang-select::-ms-expand {
+    display: none;
+}
+.lang-select option {
+    color: #000;
+}
+
+/* 移动端下拉语言选择器自适应显示 */
+@media (max-width: 768px) {
+	/* 让 language-switcher li 自动撑开高度 */
+	.header-section .main-menu li.language-switcher {
+		display: block !important;
+		height: auto !important;
+		padding: 10px 30px !important;
+		line-height: normal !important;
+	}
+	/* 下拉框本身全宽显示，内边距保证可点击区域 */
+	.header-section .main-menu li.language-switcher .lang-select {
+		display: block;
+		width: 100%;
+		max-width: none;
+		padding: 8px 0;
+		box-sizing: border-box;
+		background: transparent;
+		border: none;
+		color: #111;
+		font-size: 18px;
+		outline: none;
+	}
+	/* 确保菜单容器可见 */
+	.header-section .main-menu {
+		overflow: visible !important;
+	}
+}
