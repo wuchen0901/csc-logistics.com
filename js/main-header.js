@@ -1,6 +1,43 @@
 
+const SUPPORTED_LANGS = {
+    en: 'en',
+    cn: 'zh-CN',
+    jp: 'ja'
+};
+
+function normalizeLang(candidate) {
+    if (!candidate) {
+        return null;
+    }
+    const lang = candidate.toLowerCase();
+    if (lang.startsWith('zh')) {
+        return 'cn';
+    }
+    if (lang.startsWith('ja')) {
+        return 'jp';
+    }
+    if (lang.startsWith('en')) {
+        return 'en';
+    }
+    return null;
+}
+
+function detectPreferredLang() {
+    const list = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language];
+    for (const candidate of list) {
+        const match = normalizeLang(candidate);
+        if (match && SUPPORTED_LANGS[match]) {
+            return match;
+        }
+    }
+    return 'en';
+}
+
 function loadLanguage(lang) {
-    fetch('lang/lang-' + lang + '.json')
+    const resolvedLang = SUPPORTED_LANGS[lang] ? lang : 'en';
+    fetch('lang/lang-' + resolvedLang + '.json')
         .then(response => response.json())
         .then(data => {
             document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -9,7 +46,8 @@ function loadLanguage(lang) {
                     element.innerText = data[key];
                 }
             });
-            localStorage.setItem('site-lang', lang);
+            document.documentElement.setAttribute('lang', SUPPORTED_LANGS[resolvedLang]);
+            localStorage.setItem('site-lang', resolvedLang);
         });
 }
 
@@ -26,13 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
 
-            const savedLang = localStorage.getItem('site-lang') || 'en';
-            loadLanguage(savedLang);
+            const savedLang = localStorage.getItem('site-lang');
+            const initialLang = savedLang || detectPreferredLang();
+            loadLanguage(initialLang);
 
             const interval = setInterval(() => {
                 const selector = document.querySelector('.language-switcher select');
                 if (selector) {
-                    selector.value = savedLang;
+                    selector.value = savedLang || initialLang;
                     clearInterval(interval);
                 }
             }, 100);
